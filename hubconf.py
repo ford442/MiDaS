@@ -10,12 +10,8 @@ def DPT_Large(pretrained=True, **kwargs):
             non_negative=True,
         )
     if pretrained:
-        checkpoint = (
-            "https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt"
-        )
-        state_dict = torch.hub.load_state_dict_from_url(
-            checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True
-        )
+        checkpoint = ("/content/midas/dpt_large-midas-2f21e586.pt")
+        state_dict = torch.hub.load_state_dict_from_url(checkpoint, progress=True, check_hash=True)
         model.load_state_dict(state_dict)
     return model
     

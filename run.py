@@ -1,4 +1,3 @@
-
 import os
 import glob
 import torch
@@ -11,8 +10,7 @@ from midas.dpt_depth import DPTDepthModel
 from midas.midas_net import MidasNet
 from midas.transforms import Resize, NormalizeImage, PrepareForNet
 
-
-def run(input_path, output_path, model_path, model_type="large", optimize=True):
+def run(input_path, output_path, model_path, model_type="dpt_large", optimize=True):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if model_type == "dpt_large": # DPT-Large
         model = DPTDepthModel(

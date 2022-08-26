@@ -1,23 +1,14 @@
 dependencies = ["torch"]
-
 import torch
-
 from midas.dpt_depth import DPTDepthModel
 from midas.midas_net import MidasNet
-from midas.midas_net_custom import MidasNet_small
 
 def DPT_Large(pretrained=True, **kwargs):
-    """ # This docstring shows up in hub.help()
-    MiDaS DPT-Large model for monocular depth estimation
-    pretrained (bool): load pretrained weights into model
-    """
-
     model = DPTDepthModel(
             path=None,
-            backbone="vitl16_384",
+            backbone="vitb16_384",
             non_negative=True,
         )
-
     if pretrained:
         checkpoint = (
             "https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt"
@@ -26,21 +17,14 @@ def DPT_Large(pretrained=True, **kwargs):
             checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True
         )
         model.load_state_dict(state_dict)
-
     return model
     
 def DPT_Hybrid(pretrained=True, **kwargs):
-    """ # This docstring shows up in hub.help()
-    MiDaS DPT-Hybrid model for monocular depth estimation
-    pretrained (bool): load pretrained weights into model
-    """
-
     model = DPTDepthModel(
             path=None,
             backbone="vitb_rn50_384",
             non_negative=True,
         )
-
     if pretrained:
         checkpoint = (
             "https://github.com/intel-isl/DPT/releases/download/1_0/dpt_hybrid-midas-501f0c75.pt"
@@ -49,47 +33,16 @@ def DPT_Hybrid(pretrained=True, **kwargs):
             checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True
         )
         model.load_state_dict(state_dict)
-
     return model
-    
 def MiDaS(pretrained=True, **kwargs):
-    """ # This docstring shows up in hub.help()
-    MiDaS v2.1 model for monocular depth estimation
-    pretrained (bool): load pretrained weights into model
-    """
-
     model = MidasNet()
-
     if pretrained:
         checkpoint = (
-            "https://github.com/intel-isl/MiDaS/releases/download/v2_1/model-f6b98070.pt"
-        )
+            "https://github.com/intel-isl/MiDaS/releases/download/v2_1/model-f6b98070.pt")
         state_dict = torch.hub.load_state_dict_from_url(
-            checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True
-        )
+            checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True)
         model.load_state_dict(state_dict)
-
     return model
-
-def MiDaS_small(pretrained=True, **kwargs):
-    """ # This docstring shows up in hub.help()
-    MiDaS small model for monocular depth estimation on resource-constrained devices
-    pretrained (bool): load pretrained weights into model
-    """
-
-    model = MidasNet_small(None, features=64, backbone="efficientnet_lite3", exportable=True, non_negative=True, blocks={'expand': True})
-
-    if pretrained:
-        checkpoint = (
-            "https://github.com/intel-isl/MiDaS/releases/download/v2_1/model-small-70d6b9c8.pt"
-        )
-        state_dict = torch.hub.load_state_dict_from_url(
-            checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True
-        )
-        model.load_state_dict(state_dict)
-
-    return model
-
 
 def transforms():
     import cv2
@@ -114,7 +67,6 @@ def transforms():
             lambda sample: torch.from_numpy(sample["image"]).unsqueeze(0),
         ]
     )
-
     transforms.small_transform = Compose(
         [
             lambda img: {"image": img / 255.0},
@@ -132,7 +84,6 @@ def transforms():
             lambda sample: torch.from_numpy(sample["image"]).unsqueeze(0),
         ]
     )
-
     transforms.dpt_transform = Compose(
         [
             lambda img: {"image": img / 255.0},
@@ -150,5 +101,4 @@ def transforms():
             lambda sample: torch.from_numpy(sample["image"]).unsqueeze(0),
         ]
     )
-
     return transforms

@@ -26,7 +26,7 @@ def DPT_Hybrid(pretrained=True, **kwargs):
             "https://github.com/intel-isl/DPT/releases/download/1_0/dpt_hybrid-midas-501f0c75.pt"
         )
         state_dict = torch.hub.load_state_dict_from_url(
-            checkpoint, map_location=torch.device('cpu'), progress=True, check_hash=True
+            checkpoint, map_location=lambda storage,loc:storage.cuda(0), progress=True, check_hash=True
         )
         model.load_state_dict(state_dict)
     return model
@@ -36,7 +36,7 @@ def MiDaS(pretrained=True, **kwargs):
         checkpoint = (
             "https://github.com/intel-isl/MiDaS/releases/download/v2_1/model-f6b98070.pt")
         state_dict = torch.hub.load_state_dict_from_url(
-            checkpoint, map_location=torch.device('cuda:0'), progress=True, check_hash=True)
+            checkpoint, map_location=lambda storage,loc:storage.cuda(0), progress=True, check_hash=True)
         model.load_state_dict(state_dict)
     return model
 

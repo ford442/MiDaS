@@ -17,7 +17,7 @@ def _make_encoder(backbone, features, use_pretrained, groups=1, expand=False, ex
         scratch = _make_scratch([256, 512, 768, 768], features, groups=groups, expand=expand)  # ViT-H/16 - 85.0% Top1 (backbone)
     elif backbone == "vitb16_384":
         pretrained = _make_pretrained_vitb16_384(use_pretrained, hooks=hooks, use_readout=use_readout)
-        scratch = _make_scratch([96, 192, 384, 768], features, groups=groups, expand=expand)  # ViT-B/16 - 84.6% Top1 (backbone)
+        scratch = _make_scratch([192, 384, 768, 768], features, groups=groups, expand=expand)  # ViT-B/16 - 84.6% Top1 (backbone)
     elif backbone == "resnext101_wsl":
         pretrained = _make_pretrained_resnext101_wsl(use_pretrained)
         scratch = _make_scratch([256, 512, 1024, 2048], features, groups=groups, expand=expand)     # efficientnet_lite3  

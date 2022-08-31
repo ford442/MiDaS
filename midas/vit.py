@@ -158,7 +158,7 @@ def get_readout_oper(vit_features, features, use_readout, start_index=1):
 
 def _make_vit_b16_backbone(
     model,
-    features=[96, 192, 384, 768],
+    features=[192, 384, 768, 768],
     size=[384, 384],
     hooks=[2, 5, 8, 11],
     vit_features=768,
@@ -288,7 +288,7 @@ def _make_pretrained_vitb16_384(pretrained, use_readout="ignore", hooks=None):
 
     hooks = [2, 5, 8, 11] if hooks == None else hooks
     return _make_vit_b16_backbone(
-        model, features=[96, 192, 384, 768], hooks=hooks, use_readout=use_readout
+        model, features=[192, 384, 768, 768], hooks=hooks, vit_features=768, use_readout=use_readout
     )
 
 

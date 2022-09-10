@@ -5,7 +5,6 @@ import types
 import math
 import torch.nn.functional as F
 
-
 class Slice(nn.Module):
     def __init__(self, start_index=1):
         super(Slice, self).__init__()
@@ -103,8 +102,8 @@ def forward_flex(self, x):
     if hasattr(self.patch_embed, "backbone"):
         x = self.patch_embed.backbone(x)
         if isinstance(x, (list, tuple)):
-            x = x[-1]  # last feature if backbone outputs list/tuple of features
-    x = self.patch_embed.proj(x).flatten(2).transpose(1, 2).cpu()
+            x = x[-1].cpu()
+    x = self.patch_embed.proj(x).flatten(2).transpose(1, 2)
 
     if getattr(self, "dist_token", None) is not None:
         cls_tokens = self.cls_token.expand(

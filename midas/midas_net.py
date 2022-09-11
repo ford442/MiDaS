@@ -9,7 +9,7 @@ class MidasNet(BaseModel):
         print("Loading weights: ", path)
         super(MidasNet, self).__init__()
         use_pretrained = False if path is None else True
-        self.pretrained, self.scratch = _make_encoder(backbone="resnext101_wsl", features=features, use_pretrained=use_pretrained)
+        self.pretrained, self.scratch = _make_encoder(backbone="vitl16_384", features=features, use_pretrained=use_pretrained)
         self.scratch.refinenet4 = FeatureFusionBlock(features)
         self.scratch.refinenet3 = FeatureFusionBlock(features)
         self.scratch.refinenet2 = FeatureFusionBlock(features)

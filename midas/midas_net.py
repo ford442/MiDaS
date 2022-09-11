@@ -22,10 +22,10 @@ class MidasNet(BaseModel):
             nn.Conv2d(32, 1, kernel_size=1, stride=1, padding=0),
             nn.ReLU(True) if non_negative else nn.Identity(),
         )
-        if path:
-            self.load(path)
+       # if path:
+         #   self.load(path)
             
-    @class_cache(maxsize=None)
+    @class_cache(maxsize=40)
     def forward(self, x):
         """Forward pass.
         Args:

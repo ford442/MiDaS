@@ -22,8 +22,8 @@ class MidasNet(BaseModel):
             nn.Conv2d(32, 1, kernel_size=1, stride=1, padding=0),
             nn.ReLU(True) if non_negative else nn.Identity(),
         )
-       # if path:
-         #   self.load(path)
+        if path:
+            self.load(path)
             
     @class_cache(maxsize=40)
     def forward(self, x):
@@ -33,7 +33,6 @@ class MidasNet(BaseModel):
         Returns:
             tensor: depth
         """
-
         layer_1 = self.pretrained.layer1(x)
         layer_2 = self.pretrained.layer2(layer_1)
         layer_3 = self.pretrained.layer3(layer_2)

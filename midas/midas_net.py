@@ -25,7 +25,7 @@ class MidasNet(BaseModel):
         if path:
             self.load(path)
             
-    @class_cache(maxsize=40)
+    #@class_cache(maxsize=40)
     def forward(self, x):
         """Forward pass.
         Args:

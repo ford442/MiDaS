@@ -67,7 +67,7 @@ class DPT(BaseModel):
         out = self.scratch.output_conv(path_1)
         return out
 class DPTDepthModel(DPT):
-    def __init__(self, path=None, non_negative=True, **kwargs):
+    def __init__(self, loadm=False,path=None, non_negative=True, **kwargs):
         features = kwargs["features"] if "features" in kwargs else 256
         head = nn.Sequential(
             nn.Conv2d(features, features // 2, kernel_size=3, stride=1, padding=1),
@@ -79,7 +79,7 @@ class DPTDepthModel(DPT):
             nn.Identity(),
         )
         super().__init__(head, **kwargs)
-        if path is not None:
+        if path is not None and loadm==True:
            self.load(path)
     def forward(self, x):
         return super().forward(x).squeeze(dim=1)

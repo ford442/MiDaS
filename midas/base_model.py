@@ -6,7 +6,4 @@ class BaseModel(torch.nn.Module):
         if "optimizer" in parameters:
             parameters = parameters["model"]
         self.load_state_dict(parameters)
-        self.to(torch.device("cuda:0"));
-        
-    def unload(self):
-        self.to(torch.device("cpu"));
+     

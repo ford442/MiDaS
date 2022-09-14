@@ -82,7 +82,7 @@ class DPTDepthModel(DPT):
     #    if path is not None:
     #       self.load(path)
     def load_model(self):
-        if path is not None:
-            self.load(path='/content/midas/dpt_large-midas-2f21e586.pt')
+        path='/content/midas/dpt_large-midas-2f21e586.pt';
+        self.load(path);
     def forward(self, x):
-        return super().forward(x).squeeze(dim=1)
+        return super().forward(x).squeeze(dim=1);
